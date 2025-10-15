@@ -61,6 +61,7 @@ test.describe('Telemetry Table Real-time Updates', () => {
     await setRealTimeMode(page);
 
     // Wait for telemetry to start flowing
+    // eslint-disable-next-line playwright/no-wait-for-timeout
     await page.waitForTimeout(1000);
 
     // Check that table has rows
@@ -75,6 +76,7 @@ test.describe('Telemetry Table Real-time Updates', () => {
     const initialValue = await firstValueCell.textContent();
 
     // Wait for updates with sufficient time for CI
+    // eslint-disable-next-line playwright/no-wait-for-timeout
     await page.waitForTimeout(1000);
 
     // Check that value has updated
@@ -99,6 +101,7 @@ test.describe('Telemetry Table Real-time Updates', () => {
     await page.getByRole('button', { name: 'Save' }).click();
 
     // Wait for table to initialize
+    // eslint-disable-next-line playwright/no-wait-for-timeout
     await page.waitForTimeout(500);
 
     // Count headers after table has initialized
@@ -126,6 +129,7 @@ test.describe('Telemetry Table Real-time Updates', () => {
     await setRealTimeMode(page);
 
     // Let some data flow in
+    // eslint-disable-next-line playwright/no-wait-for-timeout
     await page.waitForTimeout(1000);
 
     // Get current row count
@@ -136,6 +140,7 @@ test.describe('Telemetry Table Real-time Updates', () => {
     await page.locator('.c-button--pause').click();
 
     // Wait for pause to take effect
+    // eslint-disable-next-line playwright/no-wait-for-timeout
     await page.waitForTimeout(500);
 
     // Check row count hasn't changed
@@ -148,6 +153,7 @@ test.describe('Telemetry Table Real-time Updates', () => {
     await page.locator('.c-button--resume').click();
 
     // Wait for telemetry to resume and new data to arrive
+    // eslint-disable-next-line playwright/no-wait-for-timeout
     await page.waitForTimeout(1000);
 
     const resumedCount = await tableRows.count();
@@ -170,6 +176,7 @@ test.describe('Telemetry Table Real-time Updates', () => {
     await setRealTimeMode(page);
 
     // Wait for table to initialize and start receiving data
+    // eslint-disable-next-line playwright/no-wait-for-timeout
     await page.waitForTimeout(500);
 
     // Get scroll container
@@ -181,6 +188,7 @@ test.describe('Telemetry Table Real-time Updates', () => {
     const scrollTop = await scrollContainer.evaluate((el) => el.scrollTop);
 
     // Wait for telemetry data to accumulate
+    // eslint-disable-next-line playwright/no-wait-for-timeout
     await page.waitForTimeout(1000);
 
     // Check scroll position changed
@@ -190,4 +198,3 @@ test.describe('Telemetry Table Real-time Updates', () => {
     expect(newScrollTop).toBeGreaterThanOrEqual(scrollTop);
   });
 });
-
