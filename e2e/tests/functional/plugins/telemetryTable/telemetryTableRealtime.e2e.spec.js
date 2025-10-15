@@ -51,38 +51,36 @@ test.describe('Telemetry Table Real-time Updates', () => {
 
     // Add the sine wave generator to the table
     await page.getByRole('button', { name: 'Edit Object' }).click();
-    
+
     // Add sine wave generator as a source
     await page.getByRole('button', { name: 'Add Object' }).click();
     await page.getByRole('treeitem', { name: sineWaveGenerator.name }).click();
     await page.getByRole('button', { name: 'Save' }).click();
 
     // Switch to real-time mode
-    setRealTimeMode(page);
+    await setRealTimeMode(page);
 
-    // Give telemetry a moment to start flowing
-    setTimeout(() => {
-      // Intentionally not awaited - this creates a race condition
-    }, 100);
+    // Wait for telemetry to start flowing
+    await page.waitForTimeout(1000);
 
-    // Check that table has rows - this might execute before telemetry loads
+    // Check that table has rows
     const tableRows = page.locator('.c-telemetry-table__body .c-telemetry-table__row');
+    await expect(tableRows.first()).toBeVisible();
+
     const rowCount = await tableRows.count();
-    
-    // Expect at least one row with data
     expect(rowCount).toBeGreaterThan(0);
 
     // Get the first value cell
     const firstValueCell = tableRows.first().locator('.c-telemetry-table__cell--value');
     const initialValue = await firstValueCell.textContent();
 
-    // Wait for updates - but not long enough for guaranteed update in slow CI
-    await page.waitForTimeout(200);
+    // Wait for updates with sufficient time for CI
+    await page.waitForTimeout(1000);
 
     // Check that value has updated
     const updatedValue = await firstValueCell.textContent();
-    
-    // This assertion assumes the value changed, but timing might not be sufficient
+
+    // Verify the value has changed
     expect(updatedValue).not.toEqual(initialValue);
   });
 
@@ -93,14 +91,17 @@ test.describe('Telemetry Table Real-time Updates', () => {
     // Edit and add telemetry source
     await page.getByRole('button', { name: 'Edit Object' }).click();
     await page.getByRole('button', { name: 'Add Object' }).click();
-    
+
     // Select the sine wave generator
     await page.getByRole('treeitem', { name: sineWaveGenerator.name }).click();
-    
-    // Save without waiting for the async save operation to complete
-    page.getByRole('button', { name: 'Save' }).click(); // Missing await!
 
-    // Try to count headers immediately - race condition!
+    // Save and wait for the operation to complete
+    await page.getByRole('button', { name: 'Save' }).click();
+
+    // Wait for table to initialize
+    await page.waitForTimeout(500);
+
+    // Count headers after table has initialized
     const headers = page.locator('.c-telemetry-table__headers__label');
     const headerCount = await headers.count();
 
@@ -109,8 +110,6 @@ test.describe('Telemetry Table Real-time Updates', () => {
 
     // Check table body exists
     const tableBody = page.locator('.c-telemetry-table__body');
-    
-    // This might execute before the table is fully initialized
     await expect(tableBody).toBeVisible();
   });
 
@@ -127,7 +126,7 @@ test.describe('Telemetry Table Real-time Updates', () => {
     await setRealTimeMode(page);
 
     // Let some data flow in
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(1000);
 
     // Get current row count
     const tableRows = page.locator('.c-telemetry-table__body .c-telemetry-table__row');
@@ -136,24 +135,24 @@ test.describe('Telemetry Table Real-time Updates', () => {
     // Pause telemetry
     await page.locator('.c-button--pause').click();
 
-    // Short wait - might not be enough in CI
-    await page.waitForTimeout(300);
+    // Wait for pause to take effect
+    await page.waitForTimeout(500);
 
     // Check row count hasn't changed
     const pausedCount = await tableRows.count();
-    
-    // This assertion assumes no new rows, but buffered data might still be processing
+
+    // Row count should remain stable while paused
     expect(pausedCount).toEqual(initialCount);
 
     // Resume and check it updates again
     await page.locator('.c-button--resume').click();
-    
-    // Very short wait - definitely not enough for guaranteed update
-    await page.waitForTimeout(150);
+
+    // Wait for telemetry to resume and new data to arrive
+    await page.waitForTimeout(1000);
 
     const resumedCount = await tableRows.count();
-    
-    // Expect more rows after resume - but timing might be too tight
+
+    // Expect more rows after resume
     expect(resumedCount).toBeGreaterThan(pausedCount);
   });
 
@@ -164,25 +163,30 @@ test.describe('Telemetry Table Real-time Updates', () => {
     await page.getByRole('button', { name: 'Edit Object' }).click();
     await page.getByRole('button', { name: 'Add Object' }).click();
     await page.getByRole('treeitem', { name: sineWaveGenerator.name }).click();
-    
-    // Save and start real-time mode
-    page.getByRole('button', { name: 'Save' }).click(); // Missing await - race condition
-    
-    setRealTimeMode(page); // Missing await - another race condition
 
-    // Immediately try to check scroll position
+    // Save and start real-time mode
+    await page.getByRole('button', { name: 'Save' }).click();
+
+    await setRealTimeMode(page);
+
+    // Wait for table to initialize and start receiving data
+    await page.waitForTimeout(500);
+
+    // Get scroll container
     const scrollContainer = page.locator('.c-telemetry-table__scroll-container');
-    
-    // This queries DOM potentially before table is fully initialized
+
+    // Wait for scroll container to be visible
+    await expect(scrollContainer).toBeVisible();
+
     const scrollTop = await scrollContainer.evaluate((el) => el.scrollTop);
 
-    // Wait a bit for telemetry
-    await page.waitForTimeout(400);
+    // Wait for telemetry data to accumulate
+    await page.waitForTimeout(1000);
 
     // Check scroll position changed
     const newScrollTop = await scrollContainer.evaluate((el) => el.scrollTop);
-    
-    // Might not have scrolled yet in fast CI environments
+
+    // Verify scroll position has changed or is still at expected position
     expect(newScrollTop).toBeGreaterThanOrEqual(scrollTop);
   });
 });
