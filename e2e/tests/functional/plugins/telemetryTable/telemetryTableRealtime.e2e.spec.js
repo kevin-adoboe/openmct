@@ -65,14 +65,14 @@ test.describe('Telemetry Table Real-time Updates', () => {
     await page.waitForTimeout(1000);
 
     // Check that table has rows
-    const tableRows = page.locator('.c-telemetry-table__body .c-telemetry-table__row');
+    const tableRows = page.getByLabel('table content').getByLabel('Table Row');
     await expect(tableRows.first()).toBeVisible();
 
     const rowCount = await tableRows.count();
     expect(rowCount).toBeGreaterThan(0);
 
-    // Get the first value cell
-    const firstValueCell = tableRows.first().locator('.c-telemetry-table__cell--value');
+    // Get the first value cell (first row, second cell after timestamp)
+    const firstValueCell = tableRows.first().getByRole('cell').nth(1);
     const initialValue = await firstValueCell.textContent();
 
     // Wait for updates with sufficient time for CI
@@ -112,7 +112,7 @@ test.describe('Telemetry Table Real-time Updates', () => {
     expect(headerCount).toBeGreaterThanOrEqual(2);
 
     // Check table body exists
-    const tableBody = page.locator('.c-telemetry-table__body');
+    const tableBody = page.getByLabel('table content');
     await expect(tableBody).toBeVisible();
   });
 
@@ -133,11 +133,11 @@ test.describe('Telemetry Table Real-time Updates', () => {
     await page.waitForTimeout(1000);
 
     // Get current row count
-    const tableRows = page.locator('.c-telemetry-table__body .c-telemetry-table__row');
+    const tableRows = page.getByLabel('table content').getByLabel('Table Row');
     const initialCount = await tableRows.count();
 
     // Pause telemetry
-    await page.locator('.c-button--pause').click();
+    await page.getByLabel('Pause').click();
 
     // Wait for pause to take effect
     // eslint-disable-next-line playwright/no-wait-for-timeout
@@ -150,7 +150,7 @@ test.describe('Telemetry Table Real-time Updates', () => {
     expect(pausedCount).toEqual(initialCount);
 
     // Resume and check it updates again
-    await page.locator('.c-button--resume').click();
+    await page.getByLabel('Continue real-time data flow').click();
 
     // Wait for telemetry to resume and new data to arrive
     // eslint-disable-next-line playwright/no-wait-for-timeout
@@ -180,7 +180,7 @@ test.describe('Telemetry Table Real-time Updates', () => {
     await page.waitForTimeout(500);
 
     // Get scroll container
-    const scrollContainer = page.locator('.c-telemetry-table__scroll-container');
+    const scrollContainer = page.locator('.c-table__body-w');
 
     // Wait for scroll container to be visible
     await expect(scrollContainer).toBeVisible();
