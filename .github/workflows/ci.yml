@@ -1,4 +1,5 @@
 name: CI
+# Test workflow trigger
 
 on:
   push:
