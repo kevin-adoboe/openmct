@@ -78,7 +78,8 @@ jobs:
         run: npm ci --no-audit --progress=false
 
       - name: Install Playwright browsers
-        run: npm exec --workspace=e2e -- playwright install --with-deps chrome
+        working-directory: ./e2e
+        run: npx playwright install --with-deps chrome
 
       - name: Run E2E CI tests
         run: npm run test:e2e:ci
@@ -121,7 +122,8 @@ jobs:
         run: npm ci --no-audit --progress=false
 
       - name: Install Playwright browsers
-        run: npm exec --workspace=e2e -- playwright install --with-deps
+        working-directory: ./e2e
+        run: npx playwright install --with-deps
 
       - name: Run E2E mobile tests
         run: npm run test:e2e:mobile
@@ -164,7 +166,8 @@ jobs:
         run: npm ci --no-audit --progress=false
 
       - name: Install Playwright browsers
-        run: npm exec --workspace=e2e -- playwright install --with-deps chrome
+        working-directory: ./e2e
+        run: npx playwright install --with-deps chrome
 
       - name: Run visual & a11y tests
         run: npm run test:e2e:visual:ci
@@ -195,7 +198,8 @@ jobs:
         run: npm ci --no-audit --progress=false
 
       - name: Install Playwright browsers
-        run: npm exec --workspace=e2e -- playwright install --with-deps chrome
+        working-directory: ./e2e
+        run: npx playwright install --with-deps chrome
 
       - name: Run performance tests (localhost)
         run: npm run test:perf:localhost
@@ -229,7 +233,8 @@ jobs:
         run: npm ci --no-audit --progress=false
 
       - name: Install Playwright browsers
-        run: npm exec --workspace=e2e -- playwright install --with-deps chrome
+        working-directory: ./e2e
+        run: npx playwright install --with-deps chrome
 
       - name: Run memory tests
         run: npm run test:perf:memory
