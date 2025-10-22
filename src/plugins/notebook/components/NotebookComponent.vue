@@ -96,11 +96,15 @@
         </div>
         <div
           v-if="selectedPage && !selectedPage.isLocked"
+          role="button"
+          tabindex="0"
           :aria-disabled="activeTransaction"
           class="c-notebook__drag-area icon-plus"
           aria-dropeffect="link"
           aria-labelledby="newEntryLabel"
           @click="newEntry(null, $event)"
+          @keydown.enter="newEntry(null, $event)"
+          @keydown.space.prevent="newEntry(null, $event)"
           @dragover="dragOver"
           @drop.capture="dropCapture"
           @drop="dropOnEntry($event)"

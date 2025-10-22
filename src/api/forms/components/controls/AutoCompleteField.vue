@@ -27,6 +27,12 @@
         v-model="field"
         class="c-input--autocomplete__input js-autocomplete__input"
         type="text"
+        role="combobox"
+        :aria-label="placeHolderText"
+        :aria-expanded="!hideOptions && filteredOptions.length > 0"
+        aria-autocomplete="list"
+        aria-controls="autocomplete-options"
+        :aria-activedescendant="optionIndex !== null ? `option-${optionIndex}` : undefined"
         :placeholder="placeHolderText"
         @click="inputClicked()"
         @keydown="keyDown($event)"
@@ -38,14 +44,19 @@
     </div>
     <div
       v-if="!hideOptions && filteredOptions.length > 0"
+      id="autocomplete-options"
       class="c-menu c-input--autocomplete__options js-autocomplete-options"
+      role="listbox"
       aria-label="Autocomplete Options"
       @blur="hideOptions = true"
     >
-      <ul>
+      <ul role="presentation">
         <li
           v-for="opt in filteredOptions"
+          :id="`option-${opt.optionId}`"
           :key="opt.optionId"
+          role="option"
+          :aria-selected="optionIndex === opt.optionId"
           :class="[{ optionPreSelected: optionIndex === opt.optionId }, itemCssClass]"
           :style="itemStyle(opt)"
           @click="fillInputWithString(opt.name)"
