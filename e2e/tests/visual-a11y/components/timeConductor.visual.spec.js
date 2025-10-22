@@ -66,6 +66,7 @@ test.describe('Visual - Time Conductor', () => {
     expect(snapshot).toMatchSnapshot('time-conductor-fixed-time.png');
   });
 
+  // eslint-disable-next-line playwright/no-skipped-test
   test.skip('Visual - Time Conductor (Realtime) @clock @snapshot', async ({ page }) => {
     // Navigate to a specific view that uses the Time Conductor in Fixed Time mode with inspect and browse panes collapsed
     await page.goto(VISUAL_REALTIME_URL, {
@@ -80,6 +81,7 @@ test.describe('Visual - Time Conductor', () => {
     });
     expect(snapshot).toMatchSnapshot('time-conductor-realtime.png');
   });
+  // eslint-disable-next-line playwright/no-skipped-test
   test.skip(
     'Visual - Time Conductor Axis Resized @clock @snapshot',
     { annotation: [{ type: 'issue', description: 'https://github.com/nasa/openmct/issues/7623' }] },
