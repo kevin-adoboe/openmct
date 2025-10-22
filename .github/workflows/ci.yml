@@ -79,7 +79,7 @@ jobs:
 
       - name: Install Playwright browsers
         working-directory: ./e2e
-        run: npx playwright install --with-deps chrome
+        run: npx playwright install --with-deps chromium
 
       - name: Run E2E CI tests
         run: npm run test:e2e:ci
@@ -167,7 +167,7 @@ jobs:
 
       - name: Install Playwright browsers
         working-directory: ./e2e
-        run: npx playwright install --with-deps chrome
+        run: npx playwright install --with-deps chromium
 
       - name: Run visual & a11y tests
         run: npm run test:e2e:visual:ci
@@ -199,7 +199,7 @@ jobs:
 
       - name: Install Playwright browsers
         working-directory: ./e2e
-        run: npx playwright install --with-deps chrome
+        run: npx playwright install --with-deps chromium
 
       - name: Run performance tests (localhost)
         run: npm run test:perf:localhost
@@ -234,7 +234,7 @@ jobs:
 
       - name: Install Playwright browsers
         working-directory: ./e2e
-        run: npx playwright install --with-deps chrome
+        run: npx playwright install --with-deps chromium
 
       - name: Run memory tests
         run: npm run test:perf:memory
