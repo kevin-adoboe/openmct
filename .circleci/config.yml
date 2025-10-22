@@ -73,8 +73,8 @@ commands:
           command: |
             ./codecov upload-process --disable-search \
               -t $CODECOV_TOKEN \
-              -F e2e-<<parameters.suite>> \
-              -f ./coverage/e2e/lcov.info
+              --flag e2e-<<parameters.suite>> \
+              --file ./coverage/e2e/lcov.info
 jobs:
   npm-audit:
     parameters:
@@ -117,8 +117,8 @@ jobs:
           command: |
             ./codecov upload-process --disable-search \
               -t $CODECOV_TOKEN \
-              -F unit \
-              -f ./coverage/unit/lcov.info
+              --flag unit \
+              --file ./coverage/unit/lcov.info
       - store_test_results:
           path: dist/reports/tests/
       - store_artifacts:
