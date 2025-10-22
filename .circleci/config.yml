@@ -71,7 +71,7 @@ commands:
       - run:
           name: Upload coverage report to Codecov
           command: |
-            ./codecov --token=$CODECOV_TOKEN --file=./coverage/e2e/lcov.info --flags=e2e-<<parameters.suite>>
+            ./codecov --token=$CODECOV_TOKEN --file=./coverage/e2e/lcov.info --flags=e2e-<<parameters.suite>> || true
 jobs:
   npm-audit:
     parameters:
@@ -112,7 +112,7 @@ jobs:
       - run:
           name: Upload coverage report to Codecov
           command: |
-            ./codecov --token=$CODECOV_TOKEN --file=./coverage/unit/lcov.info --flags=unit
+            ./codecov --token=$CODECOV_TOKEN --file=./coverage/unit/lcov.info --flags=unit || true
       - store_test_results:
           path: dist/reports/tests/
       - store_artifacts:
