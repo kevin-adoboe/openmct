@@ -68,8 +68,7 @@ test.describe('Visual - Header @a11y', () => {
     });
   });
 
-  // eslint-disable-next-line playwright/no-skipped-test
-  test.skip('show snapshot button', async ({ page, theme }) => {
+  test('show snapshot button', async ({ page, theme }) => {
     test.slow(true, 'We have to wait for the snapshot indicator to stop flashing');
     await page.getByLabel('Open the Notebook Snapshot Menu').click();
 

@@ -93,8 +93,7 @@ test.describe('Tabs View', () => {
     await expect(page.locator('canvas[id=webglContext]')).toBeHidden();
   });
 
-  // eslint-disable-next-line playwright/no-skipped-test
-  test.skip('Changing the displayed tab should not be persisted if the view is locked', async ({
+  test('Changing the displayed tab should not be persisted if the view is locked', async ({
     page
   }) => {
     await page.goto(tabsView.url);

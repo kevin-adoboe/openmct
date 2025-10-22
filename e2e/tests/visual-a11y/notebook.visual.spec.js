@@ -86,8 +86,7 @@ test.describe('Visual - Notebook @a11y', () => {
       name: 'Test Notebook'
     });
   });
-  // eslint-disable-next-line playwright/no-skipped-test
-  test.skip('Accepts dropped objects as embeds', async ({ page, theme }) => {
+  test('Accepts dropped objects as embeds', async ({ page, theme }) => {
     // Create Overlay Plot
     await createDomainObjectWithDefaults(page, {
       type: 'Overlay Plot',
@@ -107,8 +106,7 @@ test.describe('Visual - Notebook @a11y', () => {
 
     await percySnapshot(page, `Notebook w/ dropped embed (theme: ${theme})`);
   });
-  // eslint-disable-next-line playwright/no-skipped-test
-  test.skip("Blur 'Add tag' on Notebook", async ({ page, theme }) => {
+  test("Blur 'Add tag' on Notebook", async ({ page, theme }) => {
     await enterTextEntry(page, 'Entry 0');
 
     await percySnapshot(page, `Notebook Entry (theme: '${theme}')`);

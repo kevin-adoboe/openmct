@@ -59,10 +59,17 @@
   }
 }
 
-@mixin indicatorStatusColors($c) {
+@mixin indicatorStatusColors($c, $fg: null) {
   &:before,
   .c-indicator__count {
     color: $c;
+  }
+
+  @if $fg != null {
+    .c-indicator__label button,
+    .c-indicator__label a {
+      color: $fg;
+    }
   }
 }
 
@@ -184,7 +191,7 @@ tr {
 
   &.s-status-on,
   &.s-status-enabled {
-    @include indicatorStatusColors($colorIndicatorOn);
+    @include indicatorStatusColors($colorIndicatorOn, $colorOkFg);
   }
 
   &.s-status-off {
