@@ -2,7 +2,6 @@ version: 2.1
 orbs:
   node: circleci/node@5.2.0
   browser-tools: circleci/browser-tools@1.3.0
-  codecov: codecov/codecov@3.3.0
 executors:
   pw-focal-development:
     docker:
@@ -68,9 +67,13 @@ commands:
         type: string
     steps:
       - run: npm run cov:e2e:report || true
-      - codecov/upload:
-          file: ./coverage/e2e/lcov.info
-          flags: e2e-<<parameters.suite>>
+      - run:
+          name: Upload coverage to Codecov
+          command: |
+            curl -s https://codecov.io/bash | bash -s -- \
+              -f ./coverage/e2e/lcov.info \
+              -F e2e-<<parameters.suite>> \
+              -t ${CODECOV_TOKEN}
 jobs:
   npm-audit:
     parameters:
@@ -107,9 +110,13 @@ jobs:
             mkdir -p dist/reports/tests/
             TESTFILES=$(circleci tests glob "src/**/*Spec.js")
             echo "$TESTFILES" | circleci tests run --command="xargs npm run test" --verbose
-      - codecov/upload:
-          file: ./coverage/unit/lcov.info
-          flags: unit
+      - run:
+          name: Upload coverage to Codecov
+          command: |
+            curl -s https://codecov.io/bash | bash -s -- \
+              -f ./coverage/unit/lcov.info \
+              -F unit \
+              -t ${CODECOV_TOKEN}
       - store_test_results:
           path: dist/reports/tests/
       - store_artifacts:
