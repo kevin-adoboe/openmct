@@ -71,9 +71,9 @@ commands:
       - run:
           name: Upload coverage report to Codecov
           command: |
-            ./codecov --verbose upload-process --disable-search \
+            ./codecov upload-process --disable-search \
               -t $CODECOV_TOKEN \
-              -n 'e2e-<<parameters.suite>>'-${CIRCLE_WORKFLOW_ID} \
+              -n "e2e-<<parameters.suite>>-${CIRCLE_WORKFLOW_ID}" \
               -F e2e-<<parameters.suite>> \
               -f ./coverage/e2e/lcov.info
 jobs:
