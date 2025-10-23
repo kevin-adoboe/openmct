@@ -96,8 +96,8 @@ $shdwBtnsOverlay: rgba(black, 0.5) 0 1px 5px;
 $colorBodyBg: #2c2c2c;
 $colorBodyBgSubtle: pullForward($colorBodyBg, 5%);
 $colorBodyBgSubtleHov: pullForward($colorBodyBg, 10%);
-$colorBodyFg: #acacac;
-$colorBodyFgSubtle: #9c9c9c;
+$colorBodyFg: #c8c8c8; // Lightened from #acacac for WCAG 2 AA (4.5:1 on #2c2c2c)
+$colorBodyFgSubtle: #b8b8b8; // Lightened from #9c9c9c for better contrast
 $colorBodyFgEm: #fff;
 $colorGenBg: #222;
 $colorHeadBg: #000;
@@ -116,7 +116,7 @@ $colorKeySubtle: pushBack($colorKey, 10%);
 $uiColor: #0093ff; // Resize bars, splitter bars, etc.
 $colorInteriorBorder: rgba($colorBodyFg, 0.2);
 $colorInteriorBorderNotebook: rgba($colorBodyFg, 0.2);
-$colorA: #ccc;
+$colorA: #d8d8d8; // Lightened from #ccc for better contrast
 $colorAHov: #fff;
 $filterHov: brightness(1.3) contrast(1.5); // Tree, location items
 $filterHovSubtle: brightness(1.2) contrast(1.2);
@@ -142,7 +142,7 @@ $sideBarHeaderBg: rgba($colorBodyFg, 0.1);
 $sideBarHeaderFg: rgba($colorBodyFg, 0.7);
 
 // Status colors, mainly used for messaging and item ancillary symbols
-$colorStatusFg: #888;
+$colorStatusFg: #b0b0b0; // Lightened from #888 for WCAG 2 AA compliance
 $colorStatusDefault: #ccc;
 $colorStatusInfo: #60ba7b;
 $colorStatusInfoFilter: invert(58%) sepia(44%) saturate(405%) hue-rotate(85deg) brightness(102%)
