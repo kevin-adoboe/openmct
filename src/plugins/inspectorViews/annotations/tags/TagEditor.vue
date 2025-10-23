@@ -36,7 +36,7 @@
       v-show="!userAddingTag && !maxTagsAdded"
       class="c-tag-applier__add-btn c-icon-button c-icon-button--major icon-plus"
       :class="TagEditorClassNames.ADD_TAG_BUTTON"
-      aria-label="Add new tag"
+      aria-label="Add Tag"
       title="Add new tag"
       @click="addTag"
     >
