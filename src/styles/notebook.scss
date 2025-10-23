@@ -126,7 +126,7 @@
   &__drag-area {
     background: rgba($colorKey, 0.02);
     border: 1px dashed rgba($colorKey, 0.7);
-    color: $colorKey;
+    color: $colorBodyFgEm;
     cursor: pointer;
     justify-content: center;
 
@@ -331,7 +331,7 @@
   }
 
   &__time-and-creator {
-    color: $colorA;
+    color: $colorBodyFgEm;
   }
 
   &__creator [class*='icon'] {

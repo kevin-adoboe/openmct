@@ -66,6 +66,7 @@
   }
 
   @if $fg != null {
+    .c-indicator__label,
     .c-indicator__label button,
     .c-indicator__label a {
       color: $fg;

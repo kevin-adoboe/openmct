@@ -219,6 +219,10 @@
       color: $colorBodyFg
     }
   }
+
+  &__header {
+    color: $colorBodyFgEm;
+  }
 }
 
 .is-editing {
