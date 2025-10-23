@@ -32,9 +32,9 @@ const setBorderColor = '#ff00ff';
 const setBackgroundColor = '#5b0f00';
 const setTextColor = '#e6b8af';
 const defaultFrameBorderColor = '#e6b8af'; //default border color
-const defaultBorderTargetColor = '#acacac';
-const defaultTextColor = '#acacac'; // default text color
-const inheritedColor = '#acacac'; // inherited from the body style
+const defaultBorderTargetColor = '#c8c8c8'; // Updated for WCAG 2 AA compliance
+const defaultTextColor = '#c8c8c8'; // Updated for WCAG 2 AA compliance
+const inheritedColor = '#c8c8c8'; // Updated for WCAG 2 AA compliance
 const pukeGreen = '#6aa84f'; //Ugliest green known to man 🤮
 const NO_STYLE_RGBA = 'rgba(0, 0, 0, 0)'; //default background color value
 

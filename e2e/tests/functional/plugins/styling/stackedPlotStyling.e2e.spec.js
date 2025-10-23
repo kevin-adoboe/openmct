@@ -36,9 +36,9 @@ import { test } from '../../../../pluginFixtures.js';
 const setBorderColor = '#ff00ff';
 const setBackgroundColor = '#5b0f00';
 const setTextColor = '#e6b8af';
-const defaultTextColor = '#acacac'; // default text color
+const defaultTextColor = '#c8c8c8'; // Updated for WCAG 2 AA compliance
 const NO_STYLE_RGBA = 'rgba(0, 0, 0, 0)'; //default background color value
-const DEFAULT_PLOT_VIEW_BORDER_COLOR = '#acacac';
+const DEFAULT_PLOT_VIEW_BORDER_COLOR = '#c8c8c8'; // Updated for WCAG 2 AA compliance
 const setFontSize = '72px';
 const setFontWeight = '700'; //bold for monospace bold
 const setFontFamily = '"Andale Mono", sans-serif';
