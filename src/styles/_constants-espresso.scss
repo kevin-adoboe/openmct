@@ -543,7 +543,7 @@ $colorSplitterActive: $colorKey;
 $splitterBtnD: (16px, 35px); // height, width
 $splitterBtnColorBg: $colorBtnBg;
 $splitterBtnColorFg: #999;
-$splitterBtnLabelColorFg: $colorBodyFgSubtle;
+$splitterBtnLabelColorFg: $colorBodyFg; // Use main body foreground color for WCAG 2 AA compliance (4.5:1 on #2c2c2c)
 $splitterCollapsedBtnColorBg: $colorHeadBg;
 $splitterCollapsedBtnColorFg: #757575;
 $splitterCollapsedBtnColorBgHov: $colorKeyBg;
